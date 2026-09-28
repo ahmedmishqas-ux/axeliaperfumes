@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0a0a">
+<title>AXELIAPERFUMES | أسيـليا للعطور</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Tajawal',sans-serif;background:#0a0a0a;color:#fff}
+.header{position:sticky;top:0;z-index:50;background:#0a0a0a;border-bottom:1px solid #D4AF37;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+.logo{width:52px;height:52px;border-radius:50%;border:2px solid #D4AF37;object-fit:cover}
+.gold{color:#D4AF37}.btn{border:1px solid #D4AF37;background:transparent;color:#D4AF37;padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn-gold{background:#D4AF37;color:#0a0a0a;font-weight:800}
+.banner{background:#D4AF37;color:#0a0a0a;text-align:center;padding:6px;font-weight:700;font-size:13px}
+.filters{position:sticky;top:68px;z-index:40;background:#111;border-bottom:1px solid #222;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.filters input, .filters select{background:#1a1a1a;border:1px solid #333;color:#fff;padding:8px 10px;border-radius:8px;min-width:120px}
+.chip{padding:6px 12px;border-radius:20px;border:1px solid #333;background:#1a1a1a;cursor:pointer;font-size:12px}
+.chip.active{background:#D4AF37;color:#0a0a0a;border-color:#D4AF37;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;padding:14px}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:#1a1a1a;border:1px solid #222;border-radius:16px;overflow:hidden}
+.card img{width:100%;height:200px;object-fit:contain;background:#fff;padding:8px}
+.card-body{padding:12px}
+.price{color:#D4AF37;font-weight:800;font-size:18px}.old{color:#777;text-decoration:line-through;font-size:13px;margin-right:6px}
+.pyramid{display:none;margin-top:8px;background:#0f0f0f;border:1px dashed rgba(212,175,55,.3);border-radius:10px;padding:8px;font-size:11px}
+.pyramid.open{display:block}
+.whats{display:block;text-align:center;background:#0a0a0a;border:1px solid #D4AF37;color:#D4AF37;padding:8px;border-radius:10px;margin-top:8px;text-decoration:none;font-weight:700}
+.footer{margin-top:30px;padding:20px;text-align:center;border-top:1px solid #222;color:#888;font-size:12px}
+.footer img{width:80px;height:80px;border-radius:50%;border:2px solid #D4AF37;margin-bottom:10px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal.open{display:flex}
+.modal-box{background:#1a1a1a;border:1px solid #D4AF37;border-radius:16px;max-width:420px;width:100%;padding:16px;max-height:90vh;overflow:auto}
+.admin{position:fixed;inset:0;background:#0a0a0a;z-index:200;display:none;overflow:auto;padding:16px}
+.admin.open{display:block}
+.admin input, .admin textarea, .admin select{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:10px;border-radius:8px;margin:6px 0}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border:1px solid #222;padding:8px;font-size:12px;text-align:right}th{background:#1a1a1a;color:#D4AF37}
+.pagination{display:flex;gap:6px;justify-content:center;padding:12px;flex-wrap:wrap}
+.pagination button{padding:6px 10px;border:1px solid #333;background:#1a1a1a;color:#fff;border-radius:6px;cursor:pointer}
+.pagination button.active{background:#D4AF37;color:#0a0a0a}
+</style>
+</head>
+<body>
+<div class="banner">🚚 توصيل مجاني داخل عدن - axeliaperfumes.cranl.net - أسيـليا للعطور</div>
+<div class="header">
+<div style="display:flex;align-items:center;gap:10px">
+<img src="https://i.imgur.com/8Km9tLL.png" onerror="this.style.display='none'" class="logo" id="logoImg" alt="logo">
+<div><div class="gold" style="font-weight:800;font-size:18px">أسيـليا للعطور</div><div style="font-size:10px;letter-spacing:2px;color:#888">AXELIAPERFUMES</div></div>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<span style="font-size:11px;color:#888">axelia.perfumes</span>
+<button class="btn" onclick="openAdmin()">لوحة التحكم 🔧</button>
+</div>
+</div>
+
+<div class="filters">
+<input id="search" placeholder="بحث بالاسم..." oninput="load(1)">
+<select id="category" onchange="load(1)">
+<option value="الكل">الكل</option><option>رجالي</option><option>نسائي</option><option>للجنسين</option><option>شتوي</option><option>صيفي</option><option>فاخر</option><option>عربي</option>
+</select>
+<input id="minPrice" type="number" placeholder="من سعر" style="width:90px" oninput="load(1)">
+<input id="maxPrice" type="number" placeholder="إلى سعر" style="width:90px" oninput="load(1)">
+<select id="sort" onchange="load(1)"><option value="newest">الأحدث</option><option value="price_asc">السعر تصاعدي</option><option value="price_desc">السعر تنازلي</option><option value="name">الاسم</option></select>
+<span id="count" style="font-size:12px;color:#888"></span>
+</div>
+
+<div id="grid" class="grid"></div>
+<div id="pagination" class="pagination"></div>
+
+<div class="footer">
+<img src="https://i.imgur.com/8Km9tLL.png" id="footerLogo" alt="logo" onerror="this.style.display='none'">
+<div class="gold" style="font-size:18px;font-weight:800">أسيـليا للعطور</div><div style="letter-spacing:2px">AXELIAPERFUMES</div>
+<div style="margin:10px 0">📞 737563257 - 778144327<br>Facebook / Instagram / TikTok : axelia.perfumes<br>axeliaperfumes.netlify.app | axeliaperfumes.cranl.net</div>
+<div>© 2026 AXELIAPERFUMES - جميع الحقوق محفوظة</div>
+<div style="margin-top:8px;font-size:11px">حمل التطبيق: أندرويد القائمة → إضافة للشاشة الرئيسية - آيفون مشاركة → Add to Home Screen</div>
+</div>
+
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="modal-box" id="modalBox"></div></div>
+
+<div id="admin" class="admin">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 class="gold">لوحة تحكم AXELIAPERFUMES - PIN 7375</h3><button class="btn" onclick="closeAdmin()">إغلاق ✕</button></div>
+<div id="loginBox"><input id="pin" type="password" placeholder="ادخل PIN"><button class="btn-gold btn" style="width:100%;margin-top:8px" onclick="login()">دخول</button></div>
+<div id="adminContent" style="display:none">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0">
+<div style="background:#1a1a1a;padding:12px;border-radius:10px">إجمالي المنتجات<br><b id="statTotal" class="gold">0</b></div>
+<div style="background:#1a1a1a;padding:12px;border-radius:10px">متوسط السعر<br><b id="statAvg" class="gold">0</b></div>
+</div>
+<h4 class="gold">إضافة / تعديل عطر</h4>
+<input id="f_name" placeholder="اسم العطر">
+<input id="f_brand" placeholder="البراند">
+<input id="f_price" type="number" placeholder="السعر الحالي">
+<input id="f_old" type="number" placeholder="السعر القديم">
+<select id="f_cat"><option>رجالي</option><option>نسائي</option><option>للجنسين</option><option>شتوي</option><option>صيفي</option><option>فاخر</option><option>عربي</option></select>
+<input id="f_top" placeholder="المقدمة: هيل، مندارين...">
+<input id="f_heart" placeholder="القلب: قرفة، خزامى...">
+<input id="f_base" placeholder="القاعدة: فانيليا، مسك...">
+<textarea id="f_desc" placeholder="وصف"></textarea>
+<input id="f_image" type="file" accept="image/*">
+<img id="f_preview" style="width:100%;max-height:150px;object-fit:contain;display:none;background:#fff;border-radius:8px">
+<label><input type="checkbox" id="f_best"> الأكثر مبيعا</label>
+<button class="btn-gold btn" style="width:100%;margin-top:10px" onclick="saveProduct()">حفظ العطر 💾</button>
+<button class="btn" style="width:100%;margin-top:6px" onclick="resetForm()">تفريغ</button>
+
+<h4 class="gold" style="margin-top:20px">المنتجات - بحث وفلترة وحذف وتعديل - Pagination</h4>
+<input id="adminSearch" placeholder="بحث..." oninput="loadAdmin()">
+<div style="overflow:auto"><table><thead><tr><th>صورة</th><th>اسم</th><th>سعر</th><th>فئة</th><th>إجراء</th></tr></thead><tbody id="adminTable"></tbody></table></div>
+<div id="adminPag" class="pagination"></div>
+<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+<button class="btn" onclick="exportJSON()">تصدير JSON</button>
+<button class="btn" onclick="document.getElementById('importFile').click()">استيراد JSON</button>
+<input type="file" id="importFile" style="display:none" accept=".json" onchange="importJSON(event)">
+<button class="btn" onclick="seedAgain()">إعادة تحميل الافتراضي</button>
+</div>
+</div>
+</div>
+
+<script>
+let currentPage=1, adminPage=1, editingId=null, base64Image='', productsCache=[];
+async function load(page=1){
+ currentPage=page;
+ const search=document.getElementById('search').value;
+ const category=document.getElementById('category').value;
+ const minPrice=document.getElementById('minPrice').value;
+ const maxPrice=document.getElementById('maxPrice').value;
+ const sort=document.getElementById('sort').value;
+ const q=new URLSearchParams({search, category, minPrice, maxPrice, sort, page, limit:9});
+ const res=await fetch('/api/products?'+q.toString());
+ const data=await res.json();
+ productsCache=data.products;
+ document.getElementById('count').textContent=`${data.total} عطر`;
+ renderGrid(data.products);
+ renderPagination(data.page, data.pages);
+}
+function renderGrid(list){
+ const grid=document.getElementById('grid');
+ grid.innerHTML=list.map(p=>`
+  <div class="card">
+   <img src="${p.image_base64||p.image_url||'https://via.placeholder.com/300x200?text='+encodeURIComponent(p.name_ar)}" onclick="openModal(${p.id})">
+   <div class="card-body">
+    <span style="background:#D4AF37;color:#0a0a0a;padding:2px 8px;border-radius:12px;font-size:10px">${p.category}</span>
+    <div style="font-weight:800;margin-top:6px">${p.name_ar}</div>
+    <div style="color:#D4AF37;font-size:12px">${p.brand}</div>
+    <div style="margin-top:6px"><span class="price">${p.price} ر.س</span> ${p.old_price?`<span class="old">${p.old_price}</span>`:''}</div>
+    <button class="btn" style="width:100%;margin-top:8px" onclick="togglePyramid(${p.id})">الهرم العطري 🌸</button>
+    <div id="pyr-${p.id}" class="pyramid">
+     <div>🍃 <b>المقدمة:</b> ${p.top_notes||'-'}</div>
+     <div>🌹 <b>القلب:</b> ${p.heart_notes||'-'}</div>
+     <div>🌲 <b>القاعدة:</b> ${p.base_notes||'-'}</div>
+    </div>
+    <a class="whats" href="https://wa.me/967737563257?text=${encodeURIComponent('مرحبا Axeliaperfumes - أريد '+p.name_ar+' - '+p.brand+' - السعر '+p.price)}" target="_blank">اطلب عبر واتساب 📲</a>
+   </div>
+  </div>
+ `).join('');
+}
+function renderPagination(page,pages){
+ const el=document.getElementById('pagination');
+ let html='';
+ for(let i=1;i<=pages;i++) html+=`<button class="${i===page?'active':''}" onclick="load(${i})">${i}</button>`;
+ el.innerHTML=html;
+}
+function togglePyramid(id){ const el=document.getElementById('pyr-'+id); el.classList.toggle('open'); }
+function openModal(id){
+ const p=productsCache.find(x=>x.id==id);
+ if(!p) return;
+ document.getElementById('modalBox').innerHTML=`
+  <img src="${p.image_base64||p.image_url||''}" style="width:100%;height:220px;object-fit:contain;background:#fff;border-radius:12px">
+  <h3 class="gold" style="margin-top:10px">${p.name_ar}</h3><div style="color:#D4AF37">${p.brand}</div>
+  <div style="margin:8px 0"><span class="price">${p.price} ر.س</span> ${p.old_price?`<span class="old">${p.old_price}</span>`:''}</div>
+  <div style="background:#0f0f0f;border:1px dashed rgba(212,175,55,.3);border-radius:10px;padding:10px;font-size:12px;margin:10px 0">
+   <div>🍃 المقدمة: ${p.top_notes||'-'}</div><div>🌹 القلب: ${p.heart_notes||'-'}</div><div>🌲 القاعدة: ${p.base_notes||'-'}</div>
+  </div>
+  <div style="font-size:12px;color:#aaa">${p.description||''}</div>
+  <a class="whats" style="margin-top:10px" href="https://wa.me/967737563257?text=${encodeURIComponent('أريد '+p.name_ar)}" target="_blank">اطلب الآن واتساب</a>
+  <button class="btn" style="width:100%;margin-top:8px" onclick="closeModal()">إغلاق</button>
+ `;
+ document.getElementById('modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+
+// Admin
+function openAdmin(){ document.getElementById('admin').classList.add('open'); }
+function closeAdmin(){ document.getElementById('admin').classList.remove('open'); }
+function login(){
+ if(document.getElementById('pin').value==='7375'){ document.getElementById('loginBox').style.display='none'; document.getElementById('adminContent').style.display='block'; loadAdmin(); loadStats(); }
+ else alert('PIN خاطئ');
+}
+async function loadStats(){
+ const res=await fetch('/api/products?limit=1000'); const data=await res.json();
+ document.getElementById('statTotal').textContent=data.total;
+ const avg=data.products.length? (data.products.reduce((s,p)=>s+parseFloat(p.price),0)/data.products.length).toFixed(1):0;
+ document.getElementById('statAvg').textContent=avg+' ر.س';
+}
+let adminCache=[];
+async function loadAdmin(){
+ const search=document.getElementById('adminSearch').value||'';
+ const res=await fetch('/api/products?search='+encodeURIComponent(search)+'&limit=100&page='+adminPage);
+ const data=await res.json();
+ adminCache=data.products;
+ document.getElementById('adminTable').innerHTML=data.products.map(p=>`
+  <tr><td><img src="${p.image_base64||p.image_url||''}" style="width:40px;height:40px;object-fit:contain;background:#fff"></td><td>${p.name_ar}</td><td>${p.price}</td><td>${p.category}</td>
+  <td><button class="btn" onclick="editProduct(${p.id})">تعديل</button> <button class="btn" onclick="deleteProduct(${p.id})">حذف</button></td></tr>
+ `).join('');
+ let html=''; for(let i=1;i<=data.pages;i++) html+=`<button class="${i===data.page?'active':''}" onclick="adminPage=${i};loadAdmin()">${i}</button>`;
+ document.getElementById('adminPag').innerHTML=html;
+}
+document.getElementById('f_image').addEventListener('change', e=>{
+ const file=e.target.files[0]; if(!file) return;
+ const reader=new FileReader(); reader.onload=ev=>{ base64Image=ev.target.result; document.getElementById('f_preview').src=base64Image; document.getElementById('f_preview').style.display='block'; }; reader.readAsDataURL(file);
+});
+function resetForm(){ editingId=null; base64Image=''; ['f_name','f_brand','f_price','f_old','f_top','f_heart','f_base','f_desc'].forEach(id=>document.getElementById(id).value=''); document.getElementById('f_preview').style.display='none'; document.getElementById('f_image').value=''; }
+async function saveProduct(){
+ const pin='7375';
+ const body={ pin, name_ar:document.getElementById('f_name').value, brand:document.getElementById('f_brand').value, price:document.getElementById('f_price').value, old_price:document.getElementById('f_old').value, category:document.getElementById('f_cat').value, categories:[document.getElementById('f_cat').value], top_notes:document.getElementById('f_top').value, heart_notes:document.getElementById('f_heart').value, base_notes:document.getElementById('f_base').value, description:document.getElementById('f_desc').value, is_bestseller:document.getElementById('f_best').checked, image_base64:base64Image };
+ if(!body.name_ar||!body.price) return alert('الاسم والسعر مطلوب');
+ let res; if(editingId){ res=await fetch('/api/products/'+editingId,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); } else { res=await fetch('/api/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
+ if(res.ok){ alert('تم الحفظ'); resetForm(); loadAdmin(); load(); } else { const err=await res.json(); alert(err.error||'خطأ'); }
+}
+async function editProduct(id){
+ const res=await fetch('/api/products/'+id); const p=await res.json();
+ editingId=id; document.getElementById('f_name').value=p.name_ar; document.getElementById('f_brand').value=p.brand; document.getElementById('f_price').value=p.price; document.getElementById('f_old').value=p.old_price||''; document.getElementById('f_cat').value=p.category; document.getElementById('f_top').value=p.top_notes||''; document.getElementById('f_heart').value=p.heart_notes||''; document.getElementById('f_base').value=p.base_notes||''; document.getElementById('f_desc').value=p.description||''; document.getElementById('f_best').checked=p.is_bestseller; base64Image=p.image_base64||''; if(base64Image){ document.getElementById('f_preview').src=base64Image; document.getElementById('f_preview').style.display='block'; } window.scrollTo(0,0);
+}
+async function deleteProduct(id){ if(!confirm('حذف؟')) return; await fetch('/api/products/'+id,{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:'7375'})}); loadAdmin(); load(); }
+function exportJSON(){ const data=JSON.stringify(adminCache,null,2); const blob=new Blob([data],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='axeliaperfumes.json'; a.click(); }
+function importJSON(e){ const file=e.target.files[0]; const reader=new FileReader(); reader.onload=ev=>{ const arr=JSON.parse(ev.target.result); arr.forEach(async p=>{ await fetch('/api/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...p, pin:'7375', name_ar:p.name_ar, brand:p.brand, price:p.price})}); }); alert('تم الاستيراد'); loadAdmin(); load(); }; reader.readAsText(file); }
+async function seedAgain(){ if(!confirm('إعادة تحميل الافتراضي؟')) return; await fetch('/api/products?limit=1000').then(r=>r.json()).then(async d=>{ for(let p of d.products){ await fetch('/api/products/'+p.id,{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:'7375'})}); } location.reload(); }); }
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+[
+  {
+    "id": 1,
+    "name_ar": "ألاسكا",
+    "brand": "أوزاريج",
+    "price": 118,
+    "old_price": 140,
+    "category": "رجالي",
+    "categories": [
+      "رجالي",
+      "شتوي",
+      "فاخر"
+    ],
+    "top_notes": "هيل، مندارين، برغموت",
+    "heart_notes": "قرفة، خزامى، فلفل وردي",
+    "base_notes": "فانيليا، تونكا، جلد، باتشولي",
+    "description": "شرقي خشبي فاخر",
+    "is_bestseller": true,
+    "created_at": "2026-01-01"
+  },
+  {
+    "id": 2,
+    "name_ar": "توندرا",
+    "brand": "أوزاريج",
+    "price": 120,
+    "old_price": 140,
+    "category": "رجالي",
+    "categories": [
+      "رجالي",
+      "صيفي"
+    ],
+    "top_notes": "برغموت، تفاح أخضر",
+    "heart_notes": "خزامى، قرفة",
+    "base_notes": "خشب أرز، عنبر",
+    "description": "منعش",
+    "is_bestseller": false,
+    "created_at": "2026-01-02"
+  },
+  {
+    "id": 3,
+    "name_ar": "فيكتوريوسو ليجند",
+    "brand": "الهامبرا",
+    "price": 59,
+    "old_price": 75,
+    "category": "رجالي",
+    "categories": [
+      "رجالي",
+      "فاخر"
+    ],
+    "top_notes": "جريب فروت",
+    "heart_notes": "خزامى",
+    "base_notes": "خشب صندل",
+    "description": "خشبي فاخر",
+    "is_bestseller": true,
+    "created_at": "2026-01-03"
+  },
+  {
+    "id": 4,
+    "name_ar": "نفائس الشغف",
+    "brand": "الرصاصي",
+    "price": 110,
+    "old_price": 135,
+    "category": "نسائي",
+    "categories": [
+      "نسائي",
+      "فاخر"
+    ],
+    "top_notes": "زعفران",
+    "heart_notes": "عود",
+    "base_notes": "مسك فانيليا",
+    "description": "شرقي فاخر",
+    "is_bestseller": false,
+    "created_at": "2026-01-04"
+  },
+  {
+    "id": 5,
+    "name_ar": "بوكيه ريد",
+    "brand": "زيمايا",
+    "price": 60,
+    "old_price": 90,
+    "category": "نسائي",
+    "categories": [
+      "نسائي",
+      "فاخر"
+    ],
+    "top_notes": "زعفران، ياسمين",
+    "heart_notes": "غزل البنات",
+    "base_notes": "خشب أرز، عنبر",
+    "description": "بديل Baccarat Rouge 540",
+    "is_bestseller": true,
+    "created_at": "2026-01-05"
+  },
+  {
+    "id": 6,
+    "name_ar": "برستيج بلاك",
+    "brand": "الماجد للعود",
+    "price": 110,
+    "old_price": 145,
+    "category": "للجنسين",
+    "categories": [
+      "للجنسين",
+      "فاخر"
+    ],
+    "top_notes": "توت أحمر",
+    "heart_notes": "وردة، أوريس",
+    "base_notes": "خشب أرز، جلد",
+    "description": "زهري فاخر",
+    "is_bestseller": false,
+    "created_at": "2026-01-06"
+  },
+  {
+    "id": 7,
+    "name_ar": "فيلوكي",
+    "brand": "ريفز",
+    "price": 110,
+    "old_price": 150,
+    "category": "رجالي",
+    "categories": [
+      "رجالي",
+      "فاخر"
+    ],
+    "top_notes": "جريب فروت، ليمون",
+    "heart_notes": "قرفة، كراميل",
+    "base_notes": "خشب صندل، تونكا",
+    "description": "خشبي حلو منعش",
+    "is_bestseller": true,
+    "created_at": "2026-01-07"
+  }
+]
